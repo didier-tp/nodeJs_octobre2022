@@ -58,11 +58,25 @@ apiRouter.route('/devise-api/public/devise/:code')
 });
 //exemple URL: http://localhost:8282/devise-api/public/devise (returning all devises)
 //             http://localhost:8282/devise-api/public/devise?changeMini=1.05
-//A CODER EN TP
+apiRouter.route('/devise-api/public/devise')
+    .get(function (req, res, next) {
+    var changeMini = Number(req.query.changeMini);
+    if (changeMini) {
+        res.send(findDevisesWithChangeMini(allDevises, changeMini));
+    }
+    else {
+        res.send(allDevises);
+    }
+});
 // http://localhost:8282/devise-api/private/role-admin/devise en mode post
 // avec { "code" : "mxy" , "nom" : "monnaieXy" , "change" : 123 } dans req.body
-apiRouter.route('/devise-api/private/role-admin/devise');
-//A CODER EN TP
+apiRouter.route('/devise-api/private/role-admin/devise')
+    .post(function (req, res, next) {
+    var nouvelleDevise = req.body;
+    console.log("POST,nouvelleDevise=" + JSON.stringify(nouvelleDevise));
+    allDevises.push(nouvelleDevise);
+    res.send(nouvelleDevise);
+});
 // http://localhost:8282/devise-api/private/role-admin/devise en mode PUT
 // avec { "code" : "USD" , "nom" : "Dollar" , "change" : 1.123 } dans req.body
 apiRouter.route('/devise-api/private/role-admin/devise')
@@ -80,6 +94,12 @@ apiRouter.route('/devise-api/private/role-admin/devise')
     }
 });
 // http://localhost:8282/devise-api/private/role-admin/devise/EUR en mode DELETE
-//A CODER EN TP
+apiRouter.route('/devise-api/private/role-admin/devise/:code')
+    .delete(function (req, res, next) {
+    var codeDevise = req.params.code;
+    console.log("DELETE,codeDevise=" + codeDevise);
+    removeDeviseInArrayByCode(allDevises, codeDevise);
+    res.send({ deletedDeviseCode: codeDevise });
+});
 //export { apiRouter };//pour import * as deviseApiRoutes from './devise-api-routes-memory.js';
 exports.default = { apiRouter }; //pour import as deviseApiRoutes from './devise-api-routes-memory.js';
