@@ -50,7 +50,12 @@ function findDevisesWithChangeMini(devises, changeMini) {
     return selDevises;
 }
 //exemple URL: http://localhost:8282/devise-api/public/devise/EUR
-//A CODER EN TP
+apiRouter.route('/devise-api/public/devise/:code')
+    .get(function (req, res, next) {
+    let codeDevise = req.params.code;
+    let devise = findDeviseInArrayByCode(allDevises, codeDevise);
+    res.send(devise);
+});
 //exemple URL: http://localhost:8282/devise-api/public/devise (returning all devises)
 //             http://localhost:8282/devise-api/public/devise?changeMini=1.05
 //A CODER EN TP

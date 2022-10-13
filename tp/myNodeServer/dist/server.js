@@ -32,6 +32,9 @@ app.use(function (req, res, next) {
 //de simples renvois des fichiers statiques
 //du répertoire "./html"
 app.use('/html', express_1.default.static(__dirname + "/html"));
+app.get('/', function (req, res) {
+    res.redirect('/html/index.html');
+});
 // delegate REST API routes to apiRouter(s)
 //app.use(produitApiRoutes.apiRouter);
 app.use(devise_api_routes_memory_1.default.apiRouter);

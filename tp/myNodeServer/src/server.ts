@@ -38,6 +38,10 @@ app.use(function (req, res, next) {
 //du répertoire "./html"
 app.use('/html', express.static(__dirname+"/html"));
 
+app.get('/', function(req , res ) {
+  res.redirect('/html/index.html');
+});
+
 // delegate REST API routes to apiRouter(s)
 //app.use(produitApiRoutes.apiRouter);
 app.use(deviseApiRoutes.apiRouter);
