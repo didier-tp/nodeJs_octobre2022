@@ -1,5 +1,6 @@
 import express , { Request, Response , NextFunction } from 'express' ;
 //necessite "esModuleInterop" : true, dans tsconfig.json
+//necessite npm install --save-dev @types/express (en plus de npm install -s express)
 
 var app = express();
 
