@@ -4,6 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
+	"build" : "tsc f1.ts && node f1.js" ,
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "",
