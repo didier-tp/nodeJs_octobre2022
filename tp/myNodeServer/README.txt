@@ -20,3 +20,14 @@ nodemon dist/my_first_express_server.ts
 ou bien
 nodemon dist/my_first_express_server.ts
 apres npm install -g nodemon
+----------------
+structure:
+    src/server.ts
+    src/devise-api-route-memory.ts
+    dist/html/index.html
+-------------
+node dist/server.js
+   ou bien
+nodemon dist/server.js
+---------------------
+http://localhost:8282 ou bien http://localhost:8282/html/index.html
