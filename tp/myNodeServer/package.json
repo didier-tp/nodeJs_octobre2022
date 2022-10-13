@@ -4,12 +4,15 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-	"build" : "tsc f1.ts && node f1.js" ,
+    "build": "tsc f1.ts && node f1.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "",
   "license": "ISC",
   "dependencies": {
     "express": "^4.18.2"
+  },
+  "devDependencies": {
+    "@types/node": "^18.8.5"
   }
 }
