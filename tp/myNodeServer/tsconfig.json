@@ -6,6 +6,7 @@
     "outDir" : "dist",	
 	"forceConsistentCasingInFileNames": true,
 	"strict": true,
+  "esModuleInterop" : true,
 	"skipLibCheck": true  
   },
   "include": [
