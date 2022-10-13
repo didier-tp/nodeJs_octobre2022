@@ -6,6 +6,10 @@ tsc --init pour générer debut de tsconfig.json
 npm install --save express
 npm install --save-dev @types/node
 --------------
+tsc 
+ou bien
+tsc -w (dans terminal dédié)
+----------
 set XYZ=valXYZ
 ou bien
 export XYZ=valXYZ
