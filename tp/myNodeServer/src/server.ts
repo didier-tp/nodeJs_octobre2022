@@ -1,13 +1,11 @@
-//var express = require('express');
+
 import express from 'express';
-//var produitApiRoutes = require('./produit-api-routes-memory')
-//import produitApiRoutes from './produit-api-routes-memory.js';
+import { initSequelize } from './model/global-db-model'
 
-//var deviseApiRoutes = require('./devise-api-routes-memory')
-import deviseApiRoutes from './devise-api-routes-memory';
-//var deviseApiRoutes = require('./devise-api-routes-mongoose-cb')
-//import deviseApiRoutes from './devise-api-routes-mongoose-cb.js';
+//import deviseApiRoutes from './devise-api-routes-memory';
+import deviseApiRoutes from './devise-api-routes-sq';
 
+import { apiErrorHandler} from './apiErrorHandler'
 
 var app = express();
 
@@ -46,6 +44,10 @@ app.get('/', function(req , res ) {
 //app.use(produitApiRoutes.apiRouter);
 app.use(deviseApiRoutes.apiRouter);
 
+app.use(apiErrorHandler);
+
 app.listen(8282, function () {
   console.log("http://localhost:8282");
+  initSequelize();
+  
 });

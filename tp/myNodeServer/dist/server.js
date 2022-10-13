@@ -3,14 +3,11 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-//var express = require('express');
 const express_1 = __importDefault(require("express"));
-//var produitApiRoutes = require('./produit-api-routes-memory')
-//import produitApiRoutes from './produit-api-routes-memory.js';
-//var deviseApiRoutes = require('./devise-api-routes-memory')
-const devise_api_routes_memory_1 = __importDefault(require("./devise-api-routes-memory"));
-//var deviseApiRoutes = require('./devise-api-routes-mongoose-cb')
-//import deviseApiRoutes from './devise-api-routes-mongoose-cb.js';
+const global_db_model_1 = require("./model/global-db-model");
+//import deviseApiRoutes from './devise-api-routes-memory';
+const devise_api_routes_sq_1 = __importDefault(require("./devise-api-routes-sq"));
+const apiErrorHandler_1 = require("./apiErrorHandler");
 var app = (0, express_1.default)();
 //support parsing of JSON post data
 var jsonParser = express_1.default.json( /*{ extended: true }*/);
@@ -37,7 +34,9 @@ app.get('/', function (req, res) {
 });
 // delegate REST API routes to apiRouter(s)
 //app.use(produitApiRoutes.apiRouter);
-app.use(devise_api_routes_memory_1.default.apiRouter);
+app.use(devise_api_routes_sq_1.default.apiRouter);
+app.use(apiErrorHandler_1.apiErrorHandler);
 app.listen(8282, function () {
     console.log("http://localhost:8282");
+    (0, global_db_model_1.initSequelize)();
 });

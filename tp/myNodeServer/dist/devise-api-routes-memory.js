@@ -6,13 +6,13 @@ Object.defineProperty(exports, "__esModule", { value: true });
 //var express = require('express');
 const express_1 = __importDefault(require("express"));
 const apiRouter = express_1.default.Router();
+/*
+//now in model/devise.ts
 class Devise {
-    constructor(code = '', nom = '', change = 0) {
-        this.code = code;
-        this.nom = nom;
-        this.change = change;
-    }
-}
+    constructor(public code : string = '?',
+                public nom : string = '?' ,
+                public change : number = 0) {}
+}*/
 var allDevises = [];
 allDevises.push({ code: 'EUR', nom: 'Euro', change: 1.0 });
 allDevises.push({ code: 'USD', nom: 'Dollar', change: 1.1 });

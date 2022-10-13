@@ -2,11 +2,15 @@
 import express, { NextFunction , Request , Response } from 'express';
 const apiRouter = express.Router();
 
+import { IDevise, Devise } from './model/devise';
+
+/*
+//now in model/devise.ts
 class Devise {
-	constructor(public code : string = '',
-	            public nom : string = '' ,
+	constructor(public code : string = '?',
+	            public nom : string = '?' ,
 				public change : number = 0) {}
-}
+}*/
 
 var allDevises :Devise[] = [];
 
