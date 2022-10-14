@@ -20,12 +20,14 @@ export class MyApiModels {
             dialect: confDb.dialect,
             port : confDb.port,
             host : confDb.host,
+            storage : confDb.storage,
             logging: /*console.log*/false, // false or console.log,// permet de voir les logs de sequelize
             define: {
                 timestamps: false
             }
       };
       var password = confDb.password ? confDb.password : "";
+      
       this.sequelize = new Sequelize(confDb.database, confDb.user, password, sqOptions);
       this.dbname = confDb.database;
      

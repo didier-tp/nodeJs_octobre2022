@@ -17,6 +17,7 @@ class MySqDatabase {
             dialect: db_config_1.confDb.dialect,
             port: db_config_1.confDb.port,
             host: db_config_1.confDb.host,
+            storage: db_config_1.confDb.storage,
             logging: /*console.log*/ false,
             define: {
                 timestamps: false

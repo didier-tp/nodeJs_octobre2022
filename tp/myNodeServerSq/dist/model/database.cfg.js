@@ -7,7 +7,8 @@ exports.default = {
         "port": null,
         "database": "sq-test.db",
         "user": null,
-        "password": null
+        "password": null,
+        "storage": "sq-test.db"
     },
     "prod": {
         "dialect": "postgres",
@@ -15,7 +16,8 @@ exports.default = {
         "port": 5432,
         "database": "myDb",
         "user": "postgres",
-        "password": "root"
+        "password": "root",
+        "storage": null
     }
 };
 /*

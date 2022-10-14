@@ -6,10 +6,11 @@ export interface IDbConfig {
 	dialect: "mssql" | "mysql" | "postgres" | "sqlite" | "mariadb",
 	host: string,
 	port: number,
-	database : string
-	user: string
-	password : string ;
-}
+	database : string,
+	user: string,
+	password : string ,
+	storage : string
+};
 
 let mode = process.env.MODE; //env variable MODE=dev or MODE=prod when launching node
 if(mode == undefined) mode = "dev";
