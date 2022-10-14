@@ -131,7 +131,7 @@ apiRouter.route('/devise-api/private/role-admin/devise/:code')
 	}
 });
 
-
+/*
 // http://http://localhost:8282/deviseApi/rest/public/devise-conversion?montant=50&source=EUR&cible=USD renvoyant 
 // {"montant":50.0,"source":"EUR","cible":"USD","montantConverti":56.215}
 apiRouter.route('/devise-api/public/devise-conversion')
@@ -152,7 +152,7 @@ apiRouter.route('/devise-api/public/devise-conversion')
                           })
     .catch((err)=>next(err));
 });
-
+*/
 /*
 apiRouter.route('/devise-api/public/devise-conversion')
 .get( async	function(req :Request, res :Response , next: NextFunction ) {
@@ -168,7 +168,24 @@ apiRouter.route('/devise-api/public/devise-conversion')
 	}catch(ex){
 		next(ex); //to errorHandler
 	}
+});*/
+
+apiRouter.route('/devise-api/public/devise-conversion')
+.get( async	function(req :Request, res :Response , next: NextFunction ) {
+	try {
+		const  montant = Number(req.query.montant);
+		const  source = req.query.source?.toString() || "";
+		const  cible = req.query.cible?.toString()  || "";
+		const resConv = new ResConv(montant,source,cible,0);
+		//appels en // quand c'est possible :
+		const  [ deviseSource , deviseCible ] = await Promise.all ( [deviseService.findById(source) ,
+			                                                         deviseService.findById(cible) ]);
+		resConv.montantConverti = montant * deviseCible.change / deviseSource.change;
+		res.send(resConv);
+	}catch(ex){
+		next(ex); //to errorHandler
+	}
 });
-*/
+
 
 export default { apiRouter };//pour import as deviseApiRoutes from './devise-api-routes-sq';
