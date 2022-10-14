@@ -27,21 +27,12 @@ function buildStatFromProduits() {
             });
             rl.on('line', function (lineText) {
                 console.log("line=" + lineText);
-                if (lineText && !lineText.startsWith("#")) {
-                    nbLignes++;
-                    let prix = Number(lineText.split(";")[2]);
-                    if (prix > stat.max)
-                        stat.max = prix;
-                    if (prix < stat.min)
-                        stat.min = prix;
-                    stat.sum = stat.sum + prix;
-                }
+                //CODE A COMPLETER EN TP
             });
             rl.on('close', function () {
                 return __awaiter(this, void 0, void 0, function* () {
-                    stat.average = stat.sum / nbLignes;
-                    console.log(`nbLignes=${nbLignes} stat=${JSON.stringify(stat)}`);
-                    yield promises_1.default.writeFile('stats.json', JSON.stringify(stat));
+                    //CODE A COMPLETER EN TP
+                    //ECRIRE via fs.writeFile('stats.json', ....);
                     console.log("stats.json généré ou remplacé");
                 });
             });

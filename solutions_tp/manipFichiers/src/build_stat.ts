@@ -17,7 +17,7 @@ async function buildStatFromProduits(){
                 nbLignes++;
                 let prix= Number(lineText.split(";")[2]);
                 if(prix > stat.max ) stat.max= prix;
-                if(prix < stat.max ) stat.min= prix;
+                if(prix < stat.min ) stat.min= prix;
                 stat.sum = stat.sum + prix;
             }
            });
