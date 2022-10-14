@@ -9,7 +9,7 @@ const expect = chai.expect;
 
 describe("tests de calculs" ,()=>{
 
-    it("converts the basic colors", () =>{
+    it("carre de 5 vaut bien 25", () =>{
        const resCarre = carre(5);
        expect(resCarre).to.equal(25);
     });
