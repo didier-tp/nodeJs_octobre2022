@@ -32,6 +32,17 @@ app.use('/html', express_1.default.static(__dirname + "/html"));
 app.get('/', function (req, res) {
     res.redirect('/html/index.html');
 });
+/*
+app.use(function(req, res, next) {
+  //dans index.html devise-api/public/devise?x_username=toto&x_password=pwdtoto
+  let username = req.query.x_username || req.headers.x_username;
+  let password = req.query.x_password || req.headers.x_password;
+  if(password != "pwd"+username){
+    res.status(401).send({ err : "Echec Authentification" })
+  }
+  else next();
+});
+*/
 // delegate REST API routes to apiRouter(s)
 //app.use(produitApiRoutes.apiRouter);
 app.use(devise_api_routes_sq_1.default.apiRouter);
