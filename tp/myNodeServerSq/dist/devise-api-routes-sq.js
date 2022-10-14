@@ -40,36 +40,39 @@ class ResConv {
         this.montantConverti = montantConverti;
     }
 }
-// http://http://localhost:8282/deviseApi/rest/public/devise-conversion?montant=50&source=EUR&cible=USD renvoyant 
+/*
+// http://http://localhost:8282/deviseApi/rest/public/devise-conversion?montant=50&source=EUR&cible=USD renvoyant
 // {"montant":50.0,"source":"EUR","cible":"USD","montantConverti":56.215}
 apiRouter.route('/devise-api/public/devise-conversion')
-    .get(function (req, res, next) {
-    var _a, _b;
-    const montant = Number(req.query.montant);
-    const source = ((_a = req.query.source) === null || _a === void 0 ? void 0 : _a.toString()) || "";
-    const cible = ((_b = req.query.cible) === null || _b === void 0 ? void 0 : _b.toString()) || "";
+.get(	function(req :Request, res :Response , next: NextFunction ) {
+    const  montant = Number(req.query.montant);
+    const  source = req.query.source?.toString() || "";
+    const  cible = req.query.cible?.toString()  || "";
     //on demande à la base de données les détails de la devise source
-    deviseService.findByIdCb(source, function (deviseSource, err) {
-        if (err != null || deviseSource == null)
-            res.status(404).send({ message: "devise source pas trouvee" });
+    deviseService.findByIdCb( source ,
+        function (deviseSource,err){
+        if(err!=null || deviseSource==null )
+            res.status(404).send({ message:"devise source pas trouvee"}) ;
         else
             //callback avec deviseSource si tout va bien
             //2 nd appel pour récupérer les détails de la devise cible:
-            deviseService.findByIdCb(cible, function (deviseCible, err) {
-                if (err != null || deviseCible == null)
-                    res.status(404).send({ message: "devise cible pas trouvee" });
+            deviseService.findByIdCb( cible ,
+            function (deviseCible,err){
+                if(err!=null || deviseCible==null )
+                    res.status(404).send({ message:"devise cible pas trouvee"}) ;
                 else {
                     //callback avec deviseCible si tout va bien
                     var montantConverti = montant * deviseCible.change / deviseSource.change;
-                    res.send({ montant: montant,
-                        source: source,
-                        cible: cible,
-                        montantConverti: montantConverti
-                    });
-                }
-            }); //end of .findByIdCb( cible ,...
-    }); //end of .findByIdCb( source ,..			
-}); //end of route
+                    res.send ( { montant : montant ,
+                        source :source ,
+                        cible : cible ,
+                        montantConverti : montantConverti
+                       });
+                    }
+                });//end of .findByIdCb( cible ,...
+        });//end of .findByIdCb( source ,..
+});//end of route
+*/
 //exemple URL: http://localhost:8282/devise-api/public/devise/EUR
 apiRouter.route('/devise-api/public/devise/:code')
     .get(function (req, res, next) {
@@ -148,26 +151,44 @@ apiRouter.route('/devise-api/private/role-admin/devise/:code')
         }
     });
 });
-/*
-// http://http://localhost:8282/deviseApi/rest/public/devise-conversion?montant=50&source=EUR&cible=USD renvoyant
+// http://http://localhost:8282/deviseApi/rest/public/devise-conversion?montant=50&source=EUR&cible=USD renvoyant 
 // {"montant":50.0,"source":"EUR","cible":"USD","montantConverti":56.215}
 apiRouter.route('/devise-api/public/devise-conversion')
-.get(	function(req :Request, res :Response , next: NextFunction ) {
-    const  montant = Number(req.query.montant);
-    const  source = req.query.source?.toString() || "";
-    const  cible = req.query.cible?.toString()  || "";
-    let changeSource : number ;
-    let changeCible : number ;
-    const resConv = new ResConv(montant,source,cible,0);
+    .get(function (req, res, next) {
+    var _a, _b;
+    const montant = Number(req.query.montant);
+    const source = ((_a = req.query.source) === null || _a === void 0 ? void 0 : _a.toString()) || "";
+    const cible = ((_b = req.query.cible) === null || _b === void 0 ? void 0 : _b.toString()) || "";
+    let changeSource;
+    let changeCible;
+    const resConv = new ResConv(montant, source, cible, 0);
     deviseService.findById(source)
-    .then((deviseSource)=> { changeSource = deviseSource.change;
-                             return deviseService.findById(cible)
-                           })
-    .then((deviseCible)=> { changeCible = deviseCible.change;
-                            resConv.montantConverti = montant * changeCible / changeSource;
-                          res.send(resConv);
-                          })
-    .catch((err)=>next(err));
+        .then((deviseSource) => {
+        changeSource = deviseSource.change;
+        return deviseService.findById(cible);
+    })
+        .then((deviseCible) => {
+        changeCible = deviseCible.change;
+        resConv.montantConverti = montant * changeCible / changeSource;
+        res.send(resConv);
+    })
+        .catch((err) => next(err));
+});
+/*
+apiRouter.route('/devise-api/public/devise-conversion')
+.get( async	function(req :Request, res :Response , next: NextFunction ) {
+    try {
+        const  montant = Number(req.query.montant);
+        const  source = req.query.source?.toString() || "";
+        const  cible = req.query.cible?.toString()  || "";
+        const resConv = new ResConv(montant,source,cible,0);
+        const deviseSource = await deviseService.findById(source);
+        const deviseCible = await deviseService.findById(cible);
+        resConv.montantConverti = montant * deviseCible.change / deviseSource.change;
+        res.send(resConv);
+    }catch(ex){
+        next(ex); //to errorHandler
+    }
 });
 */
 exports.default = { apiRouter }; //pour import as deviseApiRoutes from './devise-api-routes-sq';
